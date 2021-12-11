@@ -14,13 +14,15 @@ function saveToDos() {
 }
 
 function deleteToDo(event) {
-    const li = event.target.parentElement;
+    const li = event.target.parentElement; 
+    // event가 발생한 대상(target) 얻기 : event.target
+    // 발생한 event의 parentElement는 li이다.
     console.dir(event);
     li.remove();
 
 }
 
-
+// 테그를 만들고 append로 붙이는 작업까지 해야한다.
 function paintToDo(newTodo) {
     const li = document.createElement("li");
     const span = document.createElement("span");
@@ -39,7 +41,7 @@ function handleToDoSubmit(event) {
     const newTodo = toDoInput.value;
     console.log(newTodo);
     toDoInput.value = ""; // 입력창을 비워놓음
-    toDos.push(newTodo);
+    toDos.push(newTodo);  // push는 toDos 배열의 맨 뒤에 newTodo값을 추가하는 함수
     paintToDo(newTodo);
     saveToDos();
 }

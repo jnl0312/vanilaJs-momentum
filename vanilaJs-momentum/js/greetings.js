@@ -23,10 +23,10 @@ function paintGreetings(username) {
 const savedUsername = localStorage.getItem(USERNAME_KEY);
 
 if (savedUsername === null) {
+    // 이름을 입력하지 않은 상태에서는 "hidden" className이 tag에서 제거된 상태
     loginForm.classList.remove(HIDDEN_CLASSNAME);
     loginForm.addEventListener("submit", onLoginSubmit);
 } else {
-    loginForm.classList.add(HIDDEN_CLASSNAME);
-    // 위는 일단 내가 추가해 놓은 코드
+    // localStorage에 이름이 있는 경우 화면에 이름을 뿌려줌.
     paintGreetings(savedUsername);
 }
