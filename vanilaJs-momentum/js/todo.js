@@ -17,11 +17,17 @@ function saveToDos() {
 }
 
 function deleteToDo(event) {
-    const li = event.target.parentElement; 
+    const li = event.target.parentElement;
     // event가 발생한 대상(target) 얻기 : event.target
     // 발생한 event의 parentElement는 li이다.
-    console.dir(li.id);
     li.remove();
+    // li.id와 toDo.id가 같으면 filter값이 false
+    // 즉, 삭제하려는 id값이 toDos배열에서 차례대로 접근하는 요소값인 toDo.id와 동일한 것
+    // 배열에 남지 않는다.
+    // li.id와 toDo.id가 다르면 filter값이 true
+    // 따라서 toDos에는 true값을 갖는 값만 남게 된다.
+    toDos = toDos.filter((toDo) => toDo.id != parseInt(li.id));
+    saveToDos();
 
 }
 
@@ -33,7 +39,7 @@ function paintToDo(newTodo) {
     const span = document.createElement("span");
     // newTodo만 넣으면 object형태로 보이기 때문에
     // newTodo에 있는 text를 받아와야한다
-    span.innerHTML = newTodo.text; 
+    span.innerHTML = newTodo.text;
     const button = document.createElement("button");
     button.innerText = "❌";
     button.addEventListener("click", deleteToDo);
@@ -48,11 +54,11 @@ function handleToDoSubmit(event) {
     const newTodo = toDoInput.value;
     console.log(newTodo);
     toDoInput.value = ""; // 입력창을 비워놓음
-    const newTodoObj ={
-        text : newTodo,
-        id : Date.now(),
+    const newTodoObj = {
+        text: newTodo,
+        id: Date.now(),
     }
-    toDos.push(newTodoObj);  // push는 toDos 배열의 맨 뒤에 newTodoObj값을 추가하는 함수
+    toDos.push(newTodoObj); // push는 toDos 배열의 맨 뒤에 newTodoObj값을 추가하는 함수
     paintToDo(newTodoObj);
     saveToDos();
 }
@@ -62,9 +68,9 @@ toDoForm.addEventListener("submit", handleToDoSubmit);
 const savedToDos = localStorage.getItem(TODOS_KEY);
 // '["plan1","plan2","plan3"]'  과 같은 형식으로 string이 savedToDos에 저장됨
 
-if(savedToDos){
+if (savedToDos) {
     const parsedToDos = JSON.parse(savedToDos);
-//  parsedToDos.forEach(item => {console.log("this is the turn of ",item)});
+    //  parsedToDos.forEach(item => {console.log("this is the turn of ",item)});
     toDos = parsedToDos;
     parsedToDos.forEach(paintToDo);
 }
