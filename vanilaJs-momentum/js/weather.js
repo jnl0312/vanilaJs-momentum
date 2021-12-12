@@ -6,7 +6,7 @@
 
 const weather = document.querySelector("#weather span:first-child");
 const city = document.querySelector("#weather span:last-child");
-const WEATHER_KEY = "c114568219c12f6cf9d28982ecb48d7d";
+const WEATHER_KEY = "key값";
 
 function onGeoOk(position) {
     const lat = position.coords.latitude;
